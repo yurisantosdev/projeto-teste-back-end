@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { Usuario } from './schemas/usuario.schema';
 
@@ -17,7 +17,12 @@ export class UsuariosController {
   }
 
   @Get(':_id')
-  async findOne(@Param('_id') _id: string): Promise<Usuario | null> {
+  async findOneByCodigo(@Param('_id') _id: string): Promise<Usuario | null> {
     return this.usuariosService.findOneByCodigo(_id);
+  }
+
+  @Get('filter')
+  async findByFilter(@Query() filter: any): Promise<Usuario[] | null> {
+    return this.usuariosService.findByFilter(filter);
   }
 }
